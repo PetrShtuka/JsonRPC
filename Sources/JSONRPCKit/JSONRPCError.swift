@@ -23,6 +23,7 @@ public enum JSONRPCError: Error {
         enum ParseError: Error {
             case nonDictionaryObject(object: Any)
             case missingKey(key: String, errorObject: Any)
+            case sessionExpired(errorObject: Any)
         }
         
         var tempError: JSONRPCError? = nil
@@ -46,24 +47,20 @@ public enum JSONRPCError: Error {
                       case .responseError(let code, let message, _) = error,
                       code == 100 && message == "Odoo Session Expired" {
                 tempError = .sessionExpired
+                throw ParseError.sessionExpired(errorObject: error)
             } else {
                 print("Unhandled error object: \(errorObject)")  // Add debug print here
                 throw ParseError.nonDictionaryObject(object: errorObject)
             }
         } catch let error as ParseError {
             switch error {
-            case .nonDictionaryObject(let object):
-                print("Error: nonDictionaryObject. Object type: \(type(of: object)), value: \(object)")
-                if let sessionTaskError = object as? JSONRPCKit.JSONRPCError,
-                   case .responseError(let code, let message, _) = sessionTaskError,
-                   code == 100 && message == "Odoo Session Expired" {
-                    tempError = .sessionExpired
-                } else {
-                    tempError = .errorObjectParseError(error)
-                }
-            case .missingKey(let key, let object):
-                print("Missing key '\(key)' in object: \(object)")  // Add debug print here
+            case .nonDictionaryObject(let _):
                 tempError = .errorObjectParseError(error)
+            case .missingKey(_, _):
+                tempError = .errorObjectParseError(error)
+            case .sessionExpired(let _):
+                // Обрабатывайте ошибку сессии здесь
+                tempError = .sessionExpired
             }
         } catch {
             tempError = .unsupportedVersion("Unknown error")
