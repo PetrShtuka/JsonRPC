@@ -28,28 +28,26 @@ public enum JSONRPCError: Error {
         var tempError: JSONRPCError? = nil
 
         do {
-            guard let dictionary = errorObject as? [String: Any] else {
-                if let error = errorObject as? JSONRPCKit.JSONRPCError,
-                   case .responseError(let code, let message, _) = error,
-                   code == 100 && message == "Odoo Session Expired" {
+            if let dictionary = errorObject as? [String: Any] {
+                guard let code = dictionary["code"] as? Int else {
+                    throw ParseError.missingKey(key: "code", errorObject: errorObject)
+                }
+
+                guard let message = dictionary["message"] as? String else {
+                    throw ParseError.missingKey(key: "message", errorObject: errorObject)
+                }
+
+                if code == 100 && message == "Odoo Session Expired" {
                     tempError = .sessionExpired
                 } else {
-                    throw ParseError.nonDictionaryObject(object: errorObject)
+                    tempError = .responseError(code: code, message: message, data: dictionary["data"])
                 }
-            }
-
-            guard let code = dictionary["code"] as? Int else {
-                throw ParseError.missingKey(key: "code", errorObject: errorObject)
-            }
-
-            guard let message = dictionary["message"] as? String else {
-                throw ParseError.missingKey(key: "message", errorObject: errorObject)
-            }
-
-            if code == 100 && message == "Odoo Session Expired" {
+            } else if let error = errorObject as? JSONRPCKit.JSONRPCError,
+                      case .responseError(let code, let message, _) = error,
+                      code == 100 && message == "Odoo Session Expired" {
                 tempError = .sessionExpired
             } else {
-                tempError = .responseError(code: code, message: message, data: dictionary["data"])
+                throw ParseError.nonDictionaryObject(object: errorObject)
             }
         } catch let error as ParseError {
             switch error {
@@ -71,5 +69,3 @@ public enum JSONRPCError: Error {
         self = tempError ?? .unsupportedVersion("Unknown error")
     }
 }
-
-
