@@ -12,7 +12,6 @@ public enum JSONRPCError: Error {
     case responseError(code: Int, message: String, data: Any?)
     case responseNotFound(requestId: Id?, object: Any)
     case resultObjectParseError(Error)
-    case errorObjectParseError(Error)
     case sessionExpired
     case unsupportedVersion(String?)
     case unexpectedTypeObject(Any)
@@ -56,9 +55,9 @@ public enum JSONRPCError: Error {
         } catch let error as ParseError {
             switch error {
             case .nonDictionaryObject(let _):
-                tempError = .errorObjectParseError(error)
+                break
             case .missingKey(_, _):
-                tempError = .errorObjectParseError(error)
+                break
             case .sessionExpired(let _):
                 // Обрабатывайте ошибку сессии здесь
                 tempError = .sessionExpired
