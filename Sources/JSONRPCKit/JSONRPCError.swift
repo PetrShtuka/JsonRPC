@@ -53,6 +53,7 @@ public enum JSONRPCError: Error {
         } catch let error as ParseError {
             switch error {
             case .nonDictionaryObject(let object):
+                print("Error: nonDictionaryObject. Object type: \(type(of: object)), value: \(object)")
                 if let sessionTaskError = object as? JSONRPCKit.JSONRPCError,
                    case .responseError(let code, let message, _) = sessionTaskError,
                    code == 100 && message == "Odoo Session Expired" {
