@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,13 +14,13 @@
 		7FC654FB1D49DF27004C390C /* BatchFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC654FA1D49DF27004C390C /* BatchFactory.swift */; };
 		7FC6550C1D49FA20004C390C /* TestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC6550B1D49FA20004C390C /* TestRequest.swift */; };
 		7FD0A33D1D4B4024007C9EAB /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB31EFB91CF6E8FE00DD13DD /* Result.framework */; };
-		CB31EFBA1CF6E8FE00DD13DD /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB31EFB91CF6E8FE00DD13DD /* Result.framework */; };
 		CB36EB281BF39028003A4BCA /* Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB36EB271BF39028003A4BCA /* Id.swift */; };
 		CB82B9E21BF0C5CE00756CB1 /* JSONRPCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB82B9E11BF0C5CE00756CB1 /* JSONRPCError.swift */; };
 		CBB0C3521BF0B1D6006A7D41 /* JSONRPCKit.h in Headers */ = {isa = PBXBuildFile; fileRef = CBB0C3511BF0B1D6006A7D41 /* JSONRPCKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CBB0C35A1BF0B2D3006A7D41 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0C3591BF0B2D3006A7D41 /* Request.swift */; };
 		CBB4161C1BF3599D00B4DB0E /* IdGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4161B1BF3599D00B4DB0E /* IdGenerator.swift */; };
 		CBB4161E1BF370EA00B4DB0E /* NumberIdGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB4161D1BF370EA00B4DB0E /* NumberIdGenerator.swift */; };
+		D0007A1A29FCEDFB00618F84 /* Result in Frameworks */ = {isa = PBXBuildFile; productRef = D0007A1929FCEDFB00618F84 /* Result */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB31EFBA1CF6E8FE00DD13DD /* Result.framework in Frameworks */,
+				D0007A1A29FCEDFB00618F84 /* Result in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +190,9 @@
 			dependencies = (
 			);
 			name = JSONRPCKit;
+			packageProductDependencies = (
+				D0007A1929FCEDFB00618F84 /* Result */,
+			);
 			productName = JSONRPCKit;
 			productReference = CBB0C34E1BF0B1D6006A7D41 /* JSONRPCKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -224,6 +227,9 @@
 				Base,
 			);
 			mainGroup = CBB0C3441BF0B1D5006A7D41;
+			packageReferences = (
+				D0007A1829FCEDFB00618F84 /* XCRemoteSwiftPackageReference "Result" */,
+			);
 			productRefGroup = CBB0C34F1BF0B1D6006A7D41 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -294,9 +300,21 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				INFOPLIST_FILE = Tests/JSONRPCKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=appletv*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=iphone*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=appletv*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=iphone*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "-.Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -308,9 +326,21 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				INFOPLIST_FILE = Tests/JSONRPCKitTests/Info.plist;
-				"LD_RUNPATH_SEARCH_PATHS[sdk=appletv*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=iphone*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=appletv*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=iphone*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "-.Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -361,8 +391,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -413,12 +443,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -437,11 +468,31 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Sources/JSONRPCKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=appletv*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=iphone*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=watch*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=appletv*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=iphone*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=watch*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bricklife.JSONRPCKit;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -461,11 +512,31 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Sources/JSONRPCKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=appletv*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=iphone*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=watch*]" = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=appletv*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=iphone*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=watch*]" = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bricklife.JSONRPCKit;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -505,6 +576,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D0007A1829FCEDFB00618F84 /* XCRemoteSwiftPackageReference "Result" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/antitypical/Result.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D0007A1929FCEDFB00618F84 /* Result */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0007A1829FCEDFB00618F84 /* XCRemoteSwiftPackageReference "Result" */;
+			productName = Result;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CBB0C3451BF0B1D6006A7D41 /* Project object */;
 }

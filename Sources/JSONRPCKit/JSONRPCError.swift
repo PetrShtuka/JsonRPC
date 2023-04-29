@@ -24,35 +24,39 @@ public enum JSONRPCError: Error {
             case nonDictionaryObject(object: Any)
             case missingKey(key: String, errorObject: Any)
         }
-        
+
+        var tempError: JSONRPCError? = nil
+
         do {
             guard let dictionary = errorObject as? [String: Any] else {
                 throw ParseError.nonDictionaryObject(object: errorObject)
             }
-          
-            
+
             guard let code = dictionary["code"] as? Int else {
                 throw ParseError.missingKey(key: "code", errorObject: errorObject)
             }
-            
+
             guard let message = dictionary["message"] as? String else {
                 throw ParseError.missingKey(key: "message", errorObject: errorObject)
             }
-            
+
             if code == 100 && message == "Odoo Session Expired" {
-                self = .sessionExpired
-                return
+                tempError = .sessionExpired
+            } else {
+                tempError = .responseError(code: code, message: message, data: dictionary["data"])
             }
-            
-            self = .responseError(code: code, message: message, data: dictionary["data"])
-        } catch let parseError as ParseError {
-            if ParseError.nonDictionaryObject(object: "SessionTaskError"){
-                self = .sessionExpired
-            }
+        } catch let error as ParseError {
+            tempError = .errorObjectParseError(error)
         } catch {
-            print("Unexpected error: \(error)")
-            self = .errorObjectParseError(error)
+            tempError = .unsupportedVersion("Unknown error")
+        }
+
+        if let unwrappedError = tempError {
+            self = unwrappedError
+        } else {
+            self = .unsupportedVersion("Unknown error")
         }
     }
+
 }
 

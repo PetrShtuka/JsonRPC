@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "result",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/antitypical/Result.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "c30700bfcab7f555bf1d386fdd609407a94f369c"
+      }
+    }
+  ],
+  "version" : 2
+}
