@@ -46,8 +46,9 @@ public enum JSONRPCError: Error {
             
             self = .responseError(code: code, message: message, data: dictionary["data"])
         } catch let parseError as ParseError {
-            print("Parse error: \(parseError)")
-            self = .errorObjectParseError(parseError)
+            if parseError == .nonDictionaryObject(object: "SessionTaskError") {
+                self = .sessionExpired
+            }
         } catch {
             print("Unexpected error: \(error)")
             self = .errorObjectParseError(error)
