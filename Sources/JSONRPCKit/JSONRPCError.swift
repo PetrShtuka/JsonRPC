@@ -41,11 +41,14 @@ public enum JSONRPCError: Error {
             
             if code == 100 && message == "Odoo Session Expired" {
                 self = .sessionExpired
-                return
+                throw ParseError.missingKey(key: "message", errorObject: errorObject)
             }
+            
+            
             
             self = .responseError(code: code, message: message, data: dictionary["data"])
         } catch {
+
             self = .errorObjectParseError(error)
         }
     }
