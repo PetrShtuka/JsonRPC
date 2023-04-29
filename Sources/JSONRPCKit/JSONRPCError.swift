@@ -46,16 +46,26 @@ public enum JSONRPCError: Error {
                 tempError = .responseError(code: code, message: message, data: dictionary["data"])
             }
         } catch let error as ParseError {
-            tempError = .errorObjectParseError(error)
+            switch error {
+            case .nonDictionaryObject(let object):
+                // Check if object contains session expired error information and set tempError accordingly
+                if let errorInfo = object as? [String: Any],
+                   let code = errorInfo["code"] as? Int,
+                   let message = errorInfo["message"] as? String,
+                   code == 100 && message == "Odoo Session Expired" {
+                    tempError = .sessionExpired
+                } else {
+                    tempError = .errorObjectParseError(error)
+                }
+            case .missingKey(_, _):
+                // Similar check here if necessary
+                tempError = .errorObjectParseError(error)
+            }
         } catch {
             tempError = .unsupportedVersion("Unknown error")
         }
 
-        if let unwrappedError = tempError {
-            self = unwrappedError
-        } else {
-            self = .unsupportedVersion("Unknown error")
-        }
+        self = tempError ?? .sessionExpired
     }
 
 }
