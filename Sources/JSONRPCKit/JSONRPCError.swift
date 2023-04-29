@@ -40,6 +40,7 @@ public enum JSONRPCError: Error {
                 
                 if code == 100 && message == "Odoo Session Expired" {
                     tempError = .sessionExpired
+                    throw ParseError.sessionExpired(errorObject: message)
                 } else {
                     tempError = .responseError(code: code, message: message, data: dictionary["data"])
                 }
