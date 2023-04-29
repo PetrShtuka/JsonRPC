@@ -47,7 +47,7 @@ internal extension BatchElementProcotol {
         }
     }
 
-    internal func result(from object: Any) -> Result<Request.Response, JSONRPCError> {
+    func result(from object: Any) -> Result<Request.Response, JSONRPCError> {
         guard let dictionary = object as? [String: Any] else {
             return .failure(.unexpectedTypeObject(object))
         }
@@ -66,7 +66,12 @@ internal extension BatchElementProcotol {
 
         switch (resultObject, errorObject) {
         case (nil, let errorObject?):
-            return .failure(JSONRPCError(errorObject: errorObject))
+            if let errorDict = errorObject as? [String: Any],
+               let error = JSONRPCError(response: errorDict) {
+                return .failure(error)
+            } else {
+                return .failure(.errorObjectParseError(NSError(domain: "", code: -1, userInfo: nil)))
+            }
 
         case (let resultObject?, nil):
             do {
@@ -79,6 +84,7 @@ internal extension BatchElementProcotol {
             return .failure(.missingBothResultAndError(dictionary))
         }
     }
+
 
     internal func result(from objects: [Any]) -> Result<Request.Response, JSONRPCError> {
         let matchedObject = objects
