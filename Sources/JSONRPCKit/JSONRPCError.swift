@@ -93,6 +93,21 @@ public enum JSONRPCError: Error {
     //     }
     // }
 
+//     init?(response: [String: Any]) {
+//     if let errorObject = response["error"] as? [String: Any],
+//        let code = errorObject["code"] as? Int,
+//        let message = errorObject["message"] as? String {
+//         if code == 100 && message == "Odoo Session Expired" {
+//             self = .sessionExpired
+//         } else {
+//             let data = errorObject["data"]
+//             self = .responseError(code: code, message: message, data: data)
+//         }
+//     } else {
+//         return nil
+//     }
+// }
+
     init?(response: [String: Any]) {
     if let errorObject = response["error"] as? [String: Any],
        let code = errorObject["code"] as? Int,
@@ -104,7 +119,11 @@ public enum JSONRPCError: Error {
             self = .responseError(code: code, message: message, data: data)
         }
     } else {
-        return nil
+        if let requestId = response["id"] as? Id {
+            self = .responseNotFound(requestId: requestId, object: response)
+        } else {
+            return nil
+        }
     }
 }
 }
