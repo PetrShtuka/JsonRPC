@@ -81,33 +81,6 @@ public enum JSONRPCError: Error {
     case missingBothResultAndError(Any)
     case nonArrayResponse(Any)
 
-    // init?(response: [String: Any]) {
-    //     guard let code = response["code"] as? Int, let message = response["message"] as? String else {
-    //         return nil
-    //     }
-    //     if code == 100 && message == "Odoo Session Expired" {
-    //         self = .sessionExpired
-    //     } else {
-    //         let data = response["data"]
-    //         self = .responseError(code: code, message: message, data: data)
-    //     }
-    // }
-
-//     init?(response: [String: Any]) {
-//     if let errorObject = response["error"] as? [String: Any],
-//        let code = errorObject["code"] as? Int,
-//        let message = errorObject["message"] as? String {
-//         if code == 100 && message == "Odoo Session Expired" {
-//             self = .sessionExpired
-//         } else {
-//             let data = errorObject["data"]
-//             self = .responseError(code: code, message: message, data: data)
-//         }
-//     } else {
-//         return nil
-//     }
-// }
-
     init?(response: [String: Any]) {
     if let errorObject = response["error"] as? [String: Any],
        let code = errorObject["code"] as? Int,
@@ -119,13 +92,14 @@ public enum JSONRPCError: Error {
             self = .responseError(code: code, message: message, data: data)
         }
     } else {
-        if let requestId = response["id"] as? Id {
+        // Ensure "id" is of type Id or is null
+        if let requestId = response["id"] as? Id? {
             self = .responseNotFound(requestId: requestId, object: response)
         } else {
             return nil
         }
     }
-}
+    }
 }
 
 public class JSONRPCResponseSerializer {
